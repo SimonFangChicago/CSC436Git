@@ -221,8 +221,17 @@
 
             3.  
         */
+		console.log("Click Toggle Button")
 		
-		
+		var rootElement = document.getElementById('rootContainer');
+
+		var children = rootElement.children[0].children;
+		for (var i = 0; i < children.length; i++) {
+			if(children[i].style.display=='inline')
+				children[i].style.display='block';
+			else
+				children[i].style.display='inline';
+		}
 		
     }
 	/*A function to add toggle display button*/
@@ -230,7 +239,16 @@
 	{
 		var toggleBtn = document.createElement("Button");
 		toggleBtn.innerHTML = "Toggle Display";
+		
+		toggleBtn.onclick = function(){
+			console.log("Click Toggle Button");
+			toggleDisplay()
+		};
+		
 		document.getElementById('rootContainer').appendChild(toggleBtn);
+		
+		
+		
 		//toggleBtn.style.display = 'inline';
 	}
     
