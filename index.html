@@ -225,7 +225,7 @@
 		
 		var rootElement = document.getElementById('rootContainer');
 
-		var children = rootElement.children[0].children;
+		var children = rootElement.children[2].children;
 		for (var i = 0; i < children.length; i++) {
 			if(children[i].style.display=='inline')
 				children[i].style.display='block';
@@ -246,10 +246,6 @@
 		};
 		
 		document.getElementById('rootContainer').appendChild(toggleBtn);
-		
-		
-		
-		//toggleBtn.style.display = 'inline';
 	}
     
     function run() {
