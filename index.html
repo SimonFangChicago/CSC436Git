@@ -4,6 +4,13 @@
     <button onclick="cleanAndCountCharacters()">
         clean and count words
     </button>
+	
+	<head>
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	</head>
+	
     <body>
     </body>
 </html>
@@ -44,6 +51,10 @@
     .gold {
         background-image: gold;
     }
+	
+	.companyNamesContainer {
+		position: relative;
+	}
 </style>
 
 <script>
@@ -82,6 +93,7 @@
         rootDiv.id = 'rootContainer';
 		rootDiv.className="rootContainer";
         var companyNamesContainer = document.createElement('div');
+		companyNamesContainer.className='companyNamesContainer';
         chicagoStartups.forEach( function(chicagoStartup, index) {
             var childDiv = document.createElement('div');
             var text = document.createTextNode(index.toString().concat(' .) ').concat(chicagoStartup));
@@ -212,7 +224,7 @@
 		}
 }
 		
-		
+		console.log(countStr);
         var text = document.createTextNode(countStr);
         allLettersCountDiv.appendChild(text);
 		document.body.appendChild(allLettersCountDiv);
@@ -223,7 +235,9 @@
     function initReverse() {
         var reverseContainer = document.createElement('div');
         reverseContainer.id = 'reverseContainer';
+		reverseContainer.style.display="block";
         var reverseBtn = document.createElement('button');
+		reverseBtn.className='btn btn-success';
         var btnText = document.createTextNode('Reverse');
         reverseBtn.onclick = renderReversedElements;
         reverseBtn.appendChild(btnText);
@@ -252,12 +266,20 @@
 		
 		var rootElement = document.getElementById('rootContainer');
 
-		var children = rootElement.children[2].children;
-		for (var i = 0; i < children.length; i++) {
-			if(children[i].style.display=='inline')
-				children[i].style.display='block';
+		var childrenOfReverse = rootElement.children[2].children;
+		for (var i = 0; i < childrenOfReverse.length; i++) {
+			if(childrenOfReverse[i].style.display=='inline')
+				childrenOfReverse[i].style.display='block';
 			else
-				children[i].style.display='inline';
+				childrenOfReverse[i].style.display='inline';
+		}
+		
+		var childrenOfCompanyNames = rootElement.children[0].children;
+		for (var i = 0; i < childrenOfCompanyNames.length; i++) {
+			if(childrenOfCompanyNames[i].style.display=='inline')
+				childrenOfCompanyNames[i].style.display='block';
+			else
+				childrenOfCompanyNames[i].style.display='inline';
 		}
 		
     }
@@ -273,6 +295,8 @@
 		};
 		
 		toggleBtn.style.display='block';
+		
+		toggleBtn.className='btn btn-success';
 		
 		document.body.appendChild(toggleBtn);
 	}
