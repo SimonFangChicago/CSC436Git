@@ -80,6 +80,7 @@
         clearDocument();
         var rootDiv = document.createElement('div');
         rootDiv.id = 'rootContainer';
+		rootDiv.className="rootContainer";
         var companyNamesContainer = document.createElement('div');
         chicagoStartups.forEach( function(chicagoStartup, index) {
             var childDiv = document.createElement('div');
@@ -166,7 +167,7 @@
 		var len = chicagoStartups.length; 
 		for (var i = 0; i < len; i++) 
 		{
-			chicagoStartups[i] = chicagoStartups[i].trim().replace(/[^a-zA-Z0-9]/g, "");
+			chicagoStartups[i] = chicagoStartups[i].trim().replace(/[^a-zA-Z]/g, "");
 			
 			for(var j = 0;j<chicagoStartups[i].length;j++)
 			{
@@ -185,11 +186,37 @@
 			children[i].innerText = i.toString().concat(' .) ').concat(chicagoStartups[i]).concat(" ").concat(chicagoStartups[i].length.toString(10));
 		}
 		
+		reverseContainer = document.getElementById('reverseContainer');
+		while (reverseContainer.hasChildNodes()) {
+            reverseContainer.removeChild(reverseContainer.lastChild);
+        }
+		
+		
+		var allLettersCountDivOld = document.getElementById('allCount');
+		if(allLettersCountDivOld)
+		{
+			document.body.removeChild(allLettersCountDivOld);
+		}
+		
 		var allLettersCountDiv = document.createElement('div');
 		allLettersCountDiv.id = 'allCount';
-        var text = document.createTextNode(countObject.toString());
+		
+		var countStr = "";
+		
+		console.log(countObject);
+		
+		
+		for (var key in countObject) {
+		if (countObject.hasOwnProperty(key)) {           
+			countStr = countStr.concat(key).concat(":").concat(countObject[key]).concat("  ");
+		}
+}
+		
+		
+        var text = document.createTextNode(countStr);
         allLettersCountDiv.appendChild(text);
-		rootElement.appendChild(allLettersCountDiv);
+		document.body.appendChild(allLettersCountDiv);
+		
 		
     }
     
@@ -245,7 +272,9 @@
 			toggleDisplay()
 		};
 		
-		document.getElementById('rootContainer').appendChild(toggleBtn);
+		toggleBtn.style.display='block';
+		
+		document.body.appendChild(toggleBtn);
 	}
     
     function run() {
