@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-    <h3>Javascript Basics</h3>
-    <button onclick="cleanAndCountCharacters()">
+    <h3>Homework1</h3>
+    <button onclick="cleanAndCountCharacters()" class='btn btn-success'>
         clean and count words
     </button>
 	
@@ -17,8 +17,6 @@
 
 <style>
     #rootContainer {
-        display: flex;
-
     }
     .root-container {
         position: relative;
@@ -54,6 +52,17 @@
 	
 	.companyNamesContainer {
 		position: relative;
+		margin:0 auto;
+	}
+	
+	.reverseContainer{
+		position: relative;
+		display: block;
+	}
+	
+	.reverseBtnContainer{
+		position: relative;
+		display: block;
 	}
 </style>
 
@@ -91,7 +100,6 @@
         clearDocument();
         var rootDiv = document.createElement('div');
         rootDiv.id = 'rootContainer';
-		rootDiv.className="rootContainer";
         var companyNamesContainer = document.createElement('div');
 		companyNamesContainer.className='companyNamesContainer';
         chicagoStartups.forEach( function(chicagoStartup, index) {
@@ -116,7 +124,7 @@
                     reverseContainer.removeChild(reverseContainer.lastChild);
                 }
                 reversedChicagoStartups.forEach(function(chicagoStartup, index) {
-                    console.log(chicagoStartup);
+                    //console.log(chicagoStartup);
                     var childDiv = document.createElement('div');
                     var text = document.createTextNode(chicagoStartup);
                     childDiv.appendChild(text);
@@ -207,7 +215,8 @@
 		var allLettersCountDivOld = document.getElementById('allCount');
 		if(allLettersCountDivOld)
 		{
-			document.body.removeChild(allLettersCountDivOld);
+			//document.body.removeChild(allLettersCountDivOld);
+			rootElement.removeChild(allLettersCountDivOld);
 		}
 		
 		var allLettersCountDiv = document.createElement('div');
@@ -227,21 +236,24 @@
 		console.log(countStr);
         var text = document.createTextNode(countStr);
         allLettersCountDiv.appendChild(text);
-		document.body.appendChild(allLettersCountDiv);
+		//document.body.appendChild(allLettersCountDiv);
+		//rootElement.appendChild(allLettersCountDiv);
+		rootElement.insertBefore(allLettersCountDiv,rootElement.children[1]);
 		
-		
+		//renderReversedElements();
     }
     
     function initReverse() {
         var reverseContainer = document.createElement('div');
         reverseContainer.id = 'reverseContainer';
-		reverseContainer.style.display="block";
+		reverseContainer.className = 'reverseContainer'
         var reverseBtn = document.createElement('button');
 		reverseBtn.className='btn btn-success';
         var btnText = document.createTextNode('Reverse');
         reverseBtn.onclick = renderReversedElements;
         reverseBtn.appendChild(btnText);
         var reverseButtonContainer = document.createElement('div');
+		reverseButtonContainer.className = 'reverseBtnContainer';
         reverseButtonContainer.appendChild(reverseBtn);    
         document.getElementById('rootContainer').appendChild(reverseButtonContainer);
         document.getElementById('rootContainer').appendChild(reverseContainer);
@@ -266,13 +278,13 @@
 		
 		var rootElement = document.getElementById('rootContainer');
 
-		var childrenOfReverse = rootElement.children[2].children;
+		/*var childrenOfReverse = rootElement.children[2].children;
 		for (var i = 0; i < childrenOfReverse.length; i++) {
 			if(childrenOfReverse[i].style.display=='inline')
 				childrenOfReverse[i].style.display='block';
 			else
 				childrenOfReverse[i].style.display='inline';
-		}
+		}*/
 		
 		var childrenOfCompanyNames = rootElement.children[0].children;
 		for (var i = 0; i < childrenOfCompanyNames.length; i++) {
@@ -294,7 +306,7 @@
 			toggleDisplay()
 		};
 		
-		toggleBtn.style.display='block';
+		toggleBtn.style.display='inline';
 		
 		toggleBtn.className='btn btn-success';
 		
@@ -305,8 +317,8 @@
         initDocument();
         initReverse();
     }
-    run();
 	addToggleButton();
+    run();
     
     var flags = {
         displayInstructions: true
