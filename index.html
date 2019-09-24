@@ -64,6 +64,11 @@
 		position: relative;
 		display: block;
 	}
+	
+	.borderBox{
+		border-style: solid;
+		border-color: green;
+	}
 </style>
 
 <script>
@@ -116,6 +121,7 @@
 
     function renderReversedElements() {
         var reverseContainer = document.getElementById('reverseContainer');
+		reverseContainer.className='borderBox';
         var reversedChicagoStartups = [];
         if (reverseContainer) {
             if (reverseContainer.hasChildNodes()) {
@@ -187,8 +193,10 @@
 		var len = chicagoStartups.length; 
 		for (var i = 0; i < len; i++) 
 		{
+			//remove special letters
 			chicagoStartups[i] = chicagoStartups[i].trim().replace(/[^a-zA-Z]/g, "");
 			
+			//counting frequency for each letter using a dictionary (countObject) 
 			for(var j = 0;j<chicagoStartups[i].length;j++)
 			{
 				if ( countObject.hasOwnProperty(chicagoStartups[i][j]) ) {
@@ -201,32 +209,36 @@
 			}
 		}
 		
-		var children = rootElement.children[0].children;
+		
+		//Rerendering companyNames
+		var children = document.getElementsByClassName('companyNamesContainer')[0].children;
 		for (var i = 0; i < children.length; i++) {
 			children[i].innerText = i.toString().concat(' .) ').concat(chicagoStartups[i]).concat(" ").concat(chicagoStartups[i].length.toString(10));
 		}
 		
+		//clear reverseContainer
 		reverseContainer = document.getElementById('reverseContainer');
 		while (reverseContainer.hasChildNodes()) {
             reverseContainer.removeChild(reverseContainer.lastChild);
         }
+		reverseContainer.className='';
 		
-		
+		//remove old countDiv
 		var allLettersCountDivOld = document.getElementById('allCount');
 		if(allLettersCountDivOld)
 		{
-			//document.body.removeChild(allLettersCountDivOld);
 			rootElement.removeChild(allLettersCountDivOld);
 		}
 		
+		//Add new countDiv
 		var allLettersCountDiv = document.createElement('div');
 		allLettersCountDiv.id = 'allCount';
 		
-		var countStr = "";
+		var countStr = "Number of occurrences: ";
 		
 		console.log(countObject);
 		
-		
+		//Create a string to display letter frequency detail
 		for (var key in countObject) {
 		if (countObject.hasOwnProperty(key)) {           
 			countStr = countStr.concat(key).concat(":").concat(countObject[key]).concat("  ");
@@ -234,13 +246,12 @@
 }
 		
 		console.log(countStr);
+		//display letter frequency
         var text = document.createTextNode(countStr);
         allLettersCountDiv.appendChild(text);
-		//document.body.appendChild(allLettersCountDiv);
-		//rootElement.appendChild(allLettersCountDiv);
+		allLettersCountDiv.className='borderBox';
 		rootElement.insertBefore(allLettersCountDiv,rootElement.children[1]);
 		
-		//renderReversedElements();
     }
     
     function initReverse() {
@@ -248,7 +259,7 @@
         reverseContainer.id = 'reverseContainer';
 		reverseContainer.className = 'reverseContainer'
         var reverseBtn = document.createElement('button');
-		reverseBtn.className='btn btn-success';
+		reverseBtn.className='btn btn-primary btn-lg btn-block';
         var btnText = document.createTextNode('Reverse');
         reverseBtn.onclick = renderReversedElements;
         reverseBtn.appendChild(btnText);
