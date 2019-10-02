@@ -1,0 +1,5 @@
+
+<div class="flex-container" align="center">
+	<button [ngClass]="{'is-liked':param==true, 'not-liked':param==false}" (click)="onClick()">Like</button>
+	<span style="color:blue">Image is liked == {{param}}</span>
+</div>
