@@ -1,3 +1,3 @@
-﻿Github repository link：https://github.com/SimonFangChicago/CSC436Git
+﻿Github repository link：https://github.com/SimonFangChicago/CSC436Git/tree/master/homework2
 
-Homework2: I am still working on it.
+Homework2
