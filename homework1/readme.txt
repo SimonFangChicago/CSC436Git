@@ -1,3 +1,3 @@
-﻿Github repository link：https://github.com/SimonFangChicago/CSC436Git
+﻿Github repository link：https://github.com/SimonFangChicago/CSC436Git/tree/master/homework1
 
-Each homework has it's own directory
+Homework1
