@@ -13,8 +13,8 @@ export class AppComponent {
 
   constructor(private adminServiceService:AdminServiceService) {
     this.articles = [
-      new Article('Angular 2', 'http://angular.io', 3),
-      new Article('Fullstack', 'http://fullstack.io', 2),
+      new Article('Angular 2', 'http://angular.io', 3,RoleEnum.Administrator),
+      new Article('Fullstack', 'http://fullstack.io', 2,RoleEnum.Administrator),
       new Article('Angular Homepage', 'http://angular.io', 1)
     ];
 
