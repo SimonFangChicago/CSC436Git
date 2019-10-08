@@ -1,0 +1,17 @@
+As a user, I can post an article, so that i can share want i want to share with others.
+
+As a user, I can upvote an article, so that i can tell others i like this article.
+
+As a user, I can downvote an article, so that i can tell others i dislike this article.
+
+As a user, I can view all articles posted on this website.
+
+As an Administrator, I can inform the user of the violations by adding comments that describe the violation.
+
+As an Administrator, I can reduce the vote score such that the post in question is downvoted to least important or bottom of the list.
+
+As for a problematic post, it should be automatically removed if the user does not address the changes within [x] time period.
+
+As an Administrator, I can remove the post at their discretion.
+
+As a user, I would be suspended by Administrator for 1 week if the violations are not corrected.
