@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
 	tasks: Observable<any[]>;
 
-	constructor(private db: AngularFirestore, private taskService: TodoServiceService) { 
+	constructor(private db: AngularFirestore) { 
 		
 	}
 

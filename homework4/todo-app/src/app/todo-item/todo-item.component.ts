@@ -5,6 +5,8 @@ import {
   HostBinding
 } from '@angular/core';
 
+import { TodoServiceService } from '../services/todo-service.service';
+
 import {DueDateEnum} from '../model/due_date_enum.moudle';
 
 @Component({
@@ -19,7 +21,7 @@ export class TodoItemComponent implements OnInit {
 	dueDate:DueDateEnum;
 	dueDateEnum = DueDateEnum;
 
-  constructor() {
+  constructor(private taskService: TodoServiceService) {
   	this.dueDate = DueDateEnum.Days;
   }
 
@@ -39,6 +41,12 @@ export class TodoItemComponent implements OnInit {
   setWeek():void
   {
   	this.dueDate = DueDateEnum.Week;
+  }
+
+  deleteTask(task)
+  {
+  	console.log(task);
+  	this.taskService.deleteTask(task.id);
   }
 
 }

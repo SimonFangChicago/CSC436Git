@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 //import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import {Task} from '../model/task.moudle';
 import {config} from '../model/task.moudle';
@@ -24,14 +25,20 @@ export class TodoServiceService {
 
   constructor(private db: AngularFirestore) {
   	this.tasks = db.collection<Task>(config.collection_endpoint);
-  	this.tasks_observation = db.collection(config.collection_endpoint).valueChanges();
-
-  	let index = 0;
-  	this.tasks_observation.forEach((task)=>
-  	{
-  		console.log (task[index]);
-  		index++;
-  	});
+  	this.tasks_observation = this.db
+    .collection(config.collection_endpoint)
+    .snapshotChanges().pipe(
+    map(actions => {
+       return actions.map(a => {
+         //Get document data
+         const data = a.payload.doc.data() as Task;
+         //Get document id
+         const id = a.payload.doc.id;
+         //Use spread operator to add the id to the document data
+         console.log({ id, ...data});
+         return { id, ...data};
+       });
+    }));
   }
 
 	addTask(task) {
