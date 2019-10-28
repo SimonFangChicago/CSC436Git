@@ -1,7 +1,10 @@
 <p>dashboard works!</p>
 
-<app-todo-item
+<div align="center">
+	<app-todo-item
     *ngFor="let task of tasks | async;"
     [task]="task">
-</app-todo-item>
+	</app-todo-item>
+</div>
+
 
