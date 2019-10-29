@@ -19,7 +19,6 @@ import {
 })
 export class TodoServiceService {
 
-  tasks_observation: Observable<any[]>;
   tasks: AngularFirestoreCollection<Task>;
 	private taskDoc: AngularFirestoreDocument<Task>;
 
@@ -30,25 +29,11 @@ export class TodoServiceService {
 
   constructor(private db: AngularFirestore) {
   	this.tasks = db.collection<Task>(config.collection_endpoint);
-  	this.tasks_observation = this.db
-    .collection(config.collection_endpoint)
-    .snapshotChanges().pipe(
-    map(actions => {
-       return actions.map(a => {
-         //Get document data
-         const data = a.payload.doc.data() as Task;
-         //Get document id
-         const id = a.payload.doc.id;
-         //Use spread operator to add the id to the document data
-         console.log({ id, ...data});
-         return { id, ...data};
-       });
-    }));
-
     this.editingMode = false;
   }
 
 	addTask(task) {
+    task.id = this.newGuid();
 		this.tasks.add(task);
 
     if(this.callbackWhenDataChanged!=null) this.callbackWhenDataChanged();
@@ -71,7 +56,7 @@ export class TodoServiceService {
   setTobeEditedTask(task):void{
     if(task == null)
     {
-      this.tobeEditedTask = {description:""};
+      this.newEmptyTask();
     }
     else
     {
@@ -82,13 +67,9 @@ export class TodoServiceService {
     
   }
 
-  newEmptyTask():void{
-    this.tobeEditedTask = {description:""};
-  }
-
   getTobeEditedTask():Task{
     if(this.tobeEditedTask == null)
-      this.tobeEditedTask = {description:""};
+      this.newEmptyTask();
     return this.tobeEditedTask;
   }
 
@@ -107,7 +88,20 @@ export class TodoServiceService {
     this.editingMode = state;
     if(state == false)
     {
-      this.tobeEditedTask = {description:""};
+      this.newEmptyTask();
     }
   }
+
+  newEmptyTask():void{
+    this.tobeEditedTask = {id:"0",description:"",dueDate:"Days"};
+  }
+
+  newGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0,
+        v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
 }

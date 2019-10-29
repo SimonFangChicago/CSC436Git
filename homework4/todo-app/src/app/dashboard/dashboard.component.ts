@@ -6,7 +6,7 @@ import {config} from '../model/task.moudle';
 import {Task} from '../model/task.moudle';
 import { map } from 'rxjs/operators';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
-import { TodoItemComponent } from '../todo-list/todo-list.component';
+import { TodoListComponent } from '../todo-list/todo-list.component';
 
 
 
