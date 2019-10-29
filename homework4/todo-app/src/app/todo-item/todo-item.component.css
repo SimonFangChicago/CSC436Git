@@ -1,4 +1,13 @@
 
 .card{
+	position: relative;
 	border: 1px solid gray;
+	border-radius: 5px;
+	height: 150px;
+}
+
+.relative_left{
+	position: relative;
+	left: 0px;
+	width:80px;
 }

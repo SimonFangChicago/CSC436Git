@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
 	tasks: Observable<any[]>;
 
-	constructor(private db: AngularFirestore) { 
+	constructor(private db: AngularFirestore,private taskService: TodoServiceService) { 
 		
 	}
 
@@ -37,6 +37,31 @@ export class DashboardComponent implements OnInit {
 		     return { id, ...data};
 		   });
 		}));
+
+		this.taskService.setDataChangeCallback(()=>{
+			this.tasks = this.db
+			.collection(config.collection_endpoint)
+			.snapshotChanges().pipe(
+			map(actions => {
+			   return actions.map(a => {
+			     //Get document data
+			     const data = a.payload.doc.data() as Task;
+			     //Get document id
+			     const id = a.payload.doc.id;
+			     //Use spread operator to add the id to the document data
+			     return { id, ...data};
+			   });
+			}));
+		});
+	}
+
+
+	toEditMode():void{
+		this.taskService.setEditMode(true);
+	}
+
+	isEditMode():boolean{
+		return this.taskService.isEditMode();
 	}
 
 }

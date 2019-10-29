@@ -1,0 +1,14 @@
+.dashboard
+{
+	border: 2px solid gray;
+	border-radius: 5px;
+	width: 500px;
+	margin: auto;
+}
+
+.btn_box_add_new{
+	position: relative;
+	border: 1px solid gray;
+	border-radius: 5px;
+	width: 300px;
+}

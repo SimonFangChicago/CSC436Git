@@ -43,6 +43,11 @@ export class TodoItemComponent implements OnInit {
   	this.dueDate = DueDateEnum.Week;
   }
 
+  edit(task)
+  {
+    this.taskService.setTobeEditedTask(task);
+  }
+
   deleteTask(task)
   {
   	console.log(task);
