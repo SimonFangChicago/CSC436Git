@@ -23,7 +23,7 @@ export class TodoServiceService {
 	private taskDoc: AngularFirestoreDocument<Task>;
 
   editingMode:boolean;
-  tobeEditedTask : Task;
+  tobeEditedTask : any;
 
   callbackWhenDataChanged:() => void;
 
@@ -33,7 +33,6 @@ export class TodoServiceService {
   }
 
 	addTask(task) {
-    task.id = this.newGuid();
 		this.tasks.add(task);
 
     if(this.callbackWhenDataChanged!=null) this.callbackWhenDataChanged();
@@ -93,15 +92,7 @@ export class TodoServiceService {
   }
 
   newEmptyTask():void{
-    this.tobeEditedTask = {id:"0",description:"",dueDate:"Days"};
-  }
-
-  newGuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0,
-        v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
+    this.tobeEditedTask = {description:"",dueDate:"Days"};
   }
 
 }
