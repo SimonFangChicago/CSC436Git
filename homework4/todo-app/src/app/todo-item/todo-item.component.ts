@@ -26,21 +26,30 @@ export class TodoItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.task.dueDate == "Urgent") this.dueDate = DueDateEnum.Urgent;
+    if(this.task.dueDate == "Days") this.dueDate = DueDateEnum.Days;
+    if(this.task.dueDate == "Week") this.dueDate = DueDateEnum.Week;
   }
 
   setUrgent():void
   {
   	this.dueDate = DueDateEnum.Urgent;
+    this.task.dueDate = "Urgent";
+    this.taskService.updateTask(this.task.id,this.task);
   }
 
   setDays():void
   {
   	this.dueDate = DueDateEnum.Days;
+    this.task.dueDate = "Days";
+    this.taskService.updateTask(this.task.id,this.task);
   }
 
   setWeek():void
   {
   	this.dueDate = DueDateEnum.Week;
+    this.task.dueDate = "Week";
+    this.taskService.updateTask(this.task.id,this.task);
   }
 
   edit(task)

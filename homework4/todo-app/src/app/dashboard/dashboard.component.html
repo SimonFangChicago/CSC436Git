@@ -2,13 +2,9 @@
 
 <div align="center" class="dashboard">
 	<div *ngIf="!isEditMode()">
-	<app-todo-item
-
-    *ngFor="let task of tasks | async;"
-    [task]="task">
-	</app-todo-item>
+	<app-todo-list></app-todo-list>
 	</div>
-
+	
 	<div *ngIf="!isEditMode()" class="btn_box_add_new">
 		<a class="btn btn-primary" style="width: 100%;" (click)="toEditMode()">
 		  Add new task

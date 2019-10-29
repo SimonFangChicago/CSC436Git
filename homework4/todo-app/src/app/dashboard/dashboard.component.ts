@@ -6,6 +6,7 @@ import {config} from '../model/task.moudle';
 import {Task} from '../model/task.moudle';
 import { map } from 'rxjs/operators';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
+import { TodoItemComponent } from '../todo-list/todo-list.component';
 
 
 
@@ -19,40 +20,12 @@ export class DashboardComponent implements OnInit {
 
 	tasks: Observable<any[]>;
 
-	constructor(private db: AngularFirestore,private taskService: TodoServiceService) { 
+	constructor(private taskService: TodoServiceService) { 
 		
 	}
 
   	ngOnInit() {
-		this.tasks = this.db
-		.collection(config.collection_endpoint)
-		.snapshotChanges().pipe(
-		map(actions => {
-		   return actions.map(a => {
-		     //Get document data
-		     const data = a.payload.doc.data() as Task;
-		     //Get document id
-		     const id = a.payload.doc.id;
-		     //Use spread operator to add the id to the document data
-		     return { id, ...data};
-		   });
-		}));
-
-		this.taskService.setDataChangeCallback(()=>{
-			this.tasks = this.db
-			.collection(config.collection_endpoint)
-			.snapshotChanges().pipe(
-			map(actions => {
-			   return actions.map(a => {
-			     //Get document data
-			     const data = a.payload.doc.data() as Task;
-			     //Get document id
-			     const id = a.payload.doc.id;
-			     //Use spread operator to add the id to the document data
-			     return { id, ...data};
-			   });
-			}));
-		});
+		
 	}
 
 

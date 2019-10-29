@@ -1,1 +1,6 @@
-<p>todo-list works!</p>
+
+<app-todo-item
+
+*ngFor="let task of tasks | async;"
+[task]="task">
+</app-todo-item>
