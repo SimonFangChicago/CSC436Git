@@ -1,1 +1,4 @@
-<p>busniess-cards works!</p>
+<app-business-card
+*ngFor="let cardInfo of cardsService.cardsInfos | async;"
+[cardInfo]="cardInfo">
+</app-business-card>

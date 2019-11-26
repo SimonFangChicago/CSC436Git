@@ -1,1 +1,23 @@
-<p>new-busniess-card works!</p>
+
+  <div class="container">
+    <label for="firstName"><b>Username</b></label>
+    <input type="text" placeholder="Enter FirstName" value="{{myCard.firstName}}" #userFirstName required autofocus>
+
+    <label for="lastName"><b>Username</b></label>
+    <input type="text" placeholder="Enter LastName" value="{{myCard.lastName}}" #userLastName required>
+
+    <label for="email"><b>Username</b></label>
+    <input type="text" placeholder="Enter Email" value="{{myCard.email}}"#userEmail required>
+
+    <label for="phoneNumber"><b>Username</b></label>
+    <input type="text" placeholder="Enter PhoneNumber" value="{{myCard.phoneNumber}}" #userPhoneNumber required>
+
+    <label for="additionalInfo"><b>Username</b></label>
+    <input type="text" placeholder="Enter Additional Info" value="{{myCard.additionalInfo}}" #userAdditionalInfo required>
+
+    
+    <button *ngIf="isNewCard()" (click)="addNew(userFirstName.value,userLastName.value, userEmail.value, userPhoneNumber.value,userAdditionalInfo.value)" >Create</button>
+
+    <button *ngIf="!isNewCard()" (click)="addNew(userFirstName.value,userLastName.value, userEmail.value, userPhoneNumber.value,userAdditionalInfo.value)" >Update</button>
+  </div>
+

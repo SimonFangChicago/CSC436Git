@@ -42,7 +42,7 @@ export class AuthServiceService {
 	}
 
   public isAuthenticated(): boolean {
-    console.log(localStorage.getItem('user'));
+    //console.log(localStorage.getItem('user'));
     return localStorage.getItem('user') !== 'null' && localStorage.getItem('user') !== null;
   }
 

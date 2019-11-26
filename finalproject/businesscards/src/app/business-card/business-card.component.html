@@ -1,1 +1,18 @@
-<p>business-card works!</p>
+
+
+<div class="w3-container">
+  <div class="w3-card-4" style="width:30%">
+    <header class="w3-container w3-light-grey">
+      <h3>{{cardInfo.firstName}} {{cardInfo.lastName}}</h3>
+    </header>
+    <div class="w3-container">
+
+      <img src="assets/img/img_avatar3.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:100px">
+      <p>Email:{{cardInfo.email}}</p><br>
+      <p>PhoneNumer:{{cardInfo.phoneNumber}}</p><br>
+      <h2>Info:{{cardInfo.additionalInfo}}</h2><br>
+    </div>
+    <button class="btn btn-primary btn-sm btn-block" (click)='edit(cardInfo)'>Edit</button>
+    <button class="btn btn-default btn-sm btn-block" (click)='delete(cardInfo)' >Delete</button>
+  </div>
+</div>

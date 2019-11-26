@@ -1,1 +1,1 @@
-<button *ngIf="authService.isAuthenticated()"  class="btn btn-lg btn-primary btn-block mb-1"  (click)="authService.logout()">Logout</button> 
+<li><a class="active" *ngIf="authService.isAuthenticated()"    (click)="authService.logout()">Logout</a> </li>
