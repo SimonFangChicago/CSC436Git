@@ -41,4 +41,9 @@ export class AuthServiceService {
 	    this.router.navigate(['login']);
 	}
 
+  public isAuthenticated(): boolean {
+    console.log(localStorage.getItem('user'));
+    return localStorage.getItem('user') !== 'null' && localStorage.getItem('user') !== null;
+  }
+
 }
