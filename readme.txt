@@ -18,6 +18,6 @@ FinalProject：https://github.com/SimonFangChicago/CSC436Git/tree/master/finalpr
 FinalProject：Firebase Url:https://csc436kunfangfinal.firebaseapp.com
 
 LoginName: chandlergegg@gmail.com
-Password: 5DeepBreaths
+Password: 5DeepBreaths!
 
 Something wrong with my WebCam.
