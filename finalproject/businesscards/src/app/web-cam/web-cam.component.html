@@ -1,9 +1,9 @@
 
-
+<div *ngIf="isLoading()" class="loading">Loading&#8230;</div>
 <div id="app">
 	<br/>
 	<div><button class="btn btn-primary" id="snap" (click)="capture()">Snap Photo</button></div>
-	<img src="{{ capture_image }}"/>
+	<br/>
     <div><video #video id="video" width="640" height="480" autoplay></video></div>
     <canvas #canvas id="canvas" width="640" height="480"></canvas>
 </div>

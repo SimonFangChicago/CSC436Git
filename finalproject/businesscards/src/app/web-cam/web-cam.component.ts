@@ -22,6 +22,8 @@ export class WebCamComponent implements OnInit {
 
     private base64String : string;
 
+    private loading : boolean;
+
     public constructor(private http : HttpClient,private cardsService:BusinessCardService,private router:Router) {
         this.capture_image = '';
     }
@@ -31,7 +33,7 @@ export class WebCamComponent implements OnInit {
     public ngAfterViewInit() {
         if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-                this.video.nativeElement.src = window.URL.createObjectURL(stream);
+                this.video.nativeElement.srcObject = stream;//window.URL.createObjectURL(stream);
                 this.video.nativeElement.play();
             });
         }
@@ -39,31 +41,36 @@ export class WebCamComponent implements OnInit {
 
     public capture() {
         var context = this.canvas.nativeElement.getContext("2d").drawImage(this.video.nativeElement, 0, 0, 640, 480);
-        //this.captures.push(this.canvas.nativeElement.toDataURL("image/png"));
-		this.capture_image = this.canvas.nativeElement.toDataURL("image/png");//'https://www.jje.sg/media/catalog/product/cache/1/image/1200x1200/9df78eab33525d08d6e5fb8d27136e95/s/s/ssbw-01.png';
+		this.capture_image = this.canvas.nativeElement.toDataURL("image/png");
 		this.convertToBase64();
-        this.OCR();
+    }
+
+    public isLoading()
+    {
+    	return this.loading;
     }
 
     public OCR()
     {
-    	/*const request: any = {
-		 'requests': [
+    	this.loading = true;
+
+		 const request: any = 
 		 {
-		 'image': {
-		 'source': {
-		 'imageUri':
-		this.capture_image,
-		 },
-		 },
-		 'features': [
-		 {
-		 'type': 'TEXT_DETECTION',
-		 'maxResults': 1,
-		 }
-		 ]
-		 }
-		 ]
+		 	'requests': 
+		 	[
+				 {
+				 	'image': 
+				 	 {
+				 		'content': this.base64String
+				 	 },
+				 	'features': 
+				 	 [
+						 {
+							 'type': 'TEXT_DETECTION'
+						 }
+					 ]
+				 }
+		 	]
 		 };
 		 const url =
 		'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBby6pLqEOiul44__X2MGZsNXF9SzzlQEE';
@@ -72,14 +79,33 @@ export class WebCamComponent implements OnInit {
 		 request
 		 ).subscribe( (results: any) => {
 		 //console.log('RESULTS RESULTS RESULTS');
+
+		 this.loading = false;
+
 		 console.log(results);
 		 console.log(results.responses["0"].fullTextAnnotation);
 
-		 var _name = results.responses["0"].fullTextAnnotation.text;
-		 var _address = results.responses["0"].fullTextAnnotation.text;
-		 var _email = results.responses["0"].fullTextAnnotation.text;
-		 var _number = results.responses["0"].fullTextAnnotation.text;
+		 if(results.responses["0"].fullTextAnnotation === null || results.responses["0"].fullTextAnnotation === undefined)
+		 {
+		 	alert("No text found in camera capture image");
+		 	return;
+		 }
 
+		 var fullText = results.responses["0"].fullTextAnnotation.text;
+		 var length = results.responses["0"].fullTextAnnotation.text.length;
+
+		 var _name = results.responses["0"].fullTextAnnotation.text;
+		 var _address = '';
+		 var _email = '';
+		 var _number = '';
+
+		 if(length>20)
+		 {
+		 	_name = results.responses["0"].fullTextAnnotation.text.substring(0,length/4);
+		 	_address = results.responses["0"].fullTextAnnotation.text.substring(length/4,2*length/4);
+		 	_email = results.responses["0"].fullTextAnnotation.text.substring(2*length/4,3*length/4);
+		 	_number = results.responses["0"].fullTextAnnotation.text.substring(3*length/4,length-1);
+		 }
 		 
 
 		 var newCard = {
@@ -91,57 +117,6 @@ export class WebCamComponent implements OnInit {
 		 }
 
 		 console.log(newCard);
-		 //console.log('RESULTS RESULTS RESULTS');
-
-		this.cardsService.add(newCard);
-
-
-  		this.router.navigate(['busniessCards']);
-
-		 });*/
-
-		 const request: any = {
-		 'requests': [
-		 {
-		 'image': {
-		 	"content": this.base64String
-		 },
-		 'features': [
-		 {
-		 'type': 'TEXT_DETECTION',
-		 'maxResults': 1,
-		 }
-		 ]
-		 }
-		 ]
-		 };
-		 const url =
-		'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBby6pLqEOiul44__X2MGZsNXF9SzzlQEE';
-		 this.http.post(
-		 url,
-		 request
-		 ).subscribe( (results: any) => {
-		 //console.log('RESULTS RESULTS RESULTS');
-		 console.log(results);
-		 console.log(results.responses["0"].fullTextAnnotation);
-
-		 var _name = results.responses["0"].fullTextAnnotation.text;
-		 var _address = results.responses["0"].fullTextAnnotation.text;
-		 var _email = results.responses["0"].fullTextAnnotation.text;
-		 var _number = results.responses["0"].fullTextAnnotation.text;
-
-		 
-
-		 var newCard = {
-		 	firstName : _name,
-		 	lastName : _name,
-		 	email : _email,
-		 	phoneNumber : _number,
-		 	additionalInfo : ''
-		 }
-
-		 console.log(newCard);
-		 //console.log('RESULTS RESULTS RESULTS');
 
 		this.cardsService.add(newCard);
 
@@ -155,18 +130,14 @@ export class WebCamComponent implements OnInit {
     convertToBase64() {
 
     const imgNode = this.canvas.nativeElement;
-
-      console.log('SELECTED IMAGE');
       console.log(imgNode);
-      console.log('SELECTED IMAGE');
       domtoimage.toPng(imgNode)
       .then( (dataUrl: string) => {
-        console.log('SELECTED IMAGE 2');
-        console.log(dataUrl);
         this.base64String = dataUrl;
-        console.log('SELECTED IMAGE 2');
+        this.base64String = this.base64String.replace('data:image/png;base64,','');
+        console.log(this.base64String);
+        this.OCR();
       }).catch( (e: any) => {
-        console.log('SELECTED IMAGE BASE64 SOMETHING WENT WRONG');
         console.log(e);
       });
 
