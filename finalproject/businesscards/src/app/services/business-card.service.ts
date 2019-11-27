@@ -46,8 +46,10 @@ export class BusinessCardService {
 
 		     //Get document id
 		     const id = a.payload.doc.id;
+
+         const isNew = false;
 		     //Use spread operator to add the id to the document data
-		     return { id, ...data};
+		     return { id,isNew, ...data};
 		   });
 		}));
 
@@ -136,6 +138,7 @@ setTobeEditedCard(card):void{
   newEmptyCard():void{
 
     this.tobeEditedCard = {
+        isNew:true,
   			firstName:'',
   			lastName:'',
   			email: '',

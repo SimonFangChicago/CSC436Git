@@ -5,4 +5,5 @@ export interface BusniessCardModel {
     email: string; 
     additionalInfo: string; 
     phoneNumber: string;
+    imageBase64: string;
 }

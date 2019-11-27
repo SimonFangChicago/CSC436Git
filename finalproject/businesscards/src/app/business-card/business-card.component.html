@@ -7,7 +7,7 @@
     </header>
     <div class="w3-container">
 
-      <img src="assets/img/img_avatar3.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:100px">
+      <img [src]="'data:image/png;base64,' + cardInfo.imageBase64" onerror="this.src='assets/img/img_avatar3.png'" class="w3-left w3-circle w3-margin-right" style="width:100px"/>
       <p>Email:{{cardInfo.email}}</p><br>
       <p>PhoneNumer:{{cardInfo.phoneNumber}}</p><br>
       <h2>Info:{{cardInfo.additionalInfo}}</h2><br>

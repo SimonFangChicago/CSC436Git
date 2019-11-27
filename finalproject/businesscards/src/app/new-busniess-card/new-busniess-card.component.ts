@@ -29,7 +29,8 @@ export class NewBusniessCardComponent implements OnInit {
           lastName:userLastName,
           email: userEmail,
           phoneNumber: userPhoneNumber,
-          additionalInfo: userAdditionalInfo
+          additionalInfo: userAdditionalInfo,
+          imageBase64:this.myCard.imageBase64
         }
 
         this.cardsService.add(newCard);
@@ -49,7 +50,10 @@ export class NewBusniessCardComponent implements OnInit {
 
   isNewCard()
   {
-      return this.myCard.firstName === '';
+      if(this.myCard.isNew === true)
+      {
+        return true;
+      }
   }
 
 }

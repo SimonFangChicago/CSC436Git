@@ -26,7 +26,7 @@ export class BusniessCardsComponent implements OnInit {
   }
 
   ngOnInit() {
-  	
+  	this.cardsService.setTobeEditedCard(null);
   }
 
 }

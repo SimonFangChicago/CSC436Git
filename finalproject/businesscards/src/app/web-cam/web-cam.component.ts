@@ -28,7 +28,9 @@ export class WebCamComponent implements OnInit {
         this.capture_image = '';
     }
 
-    public ngOnInit() { }
+    public ngOnInit() { 
+    	this.cardsService.setTobeEditedCard(null);
+    }
 
     public ngAfterViewInit() {
         if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -80,48 +82,59 @@ export class WebCamComponent implements OnInit {
 		 ).subscribe( (results: any) => {
 		 //console.log('RESULTS RESULTS RESULTS');
 
-		 this.loading = false;
+			 this.loading = false;
 
-		 console.log(results);
-		 console.log(results.responses["0"].fullTextAnnotation);
-
-		 if(results.responses["0"].fullTextAnnotation === null || results.responses["0"].fullTextAnnotation === undefined)
-		 {
-		 	alert("No text found in camera capture image");
-		 	return;
-		 }
-
-		 var fullText = results.responses["0"].fullTextAnnotation.text;
-		 var length = results.responses["0"].fullTextAnnotation.text.length;
-
-		 var _name = results.responses["0"].fullTextAnnotation.text;
-		 var _address = '';
-		 var _email = '';
-		 var _number = '';
-
-		 if(length>20)
-		 {
-		 	_name = results.responses["0"].fullTextAnnotation.text.substring(0,length/4);
-		 	_address = results.responses["0"].fullTextAnnotation.text.substring(length/4,2*length/4);
-		 	_email = results.responses["0"].fullTextAnnotation.text.substring(2*length/4,3*length/4);
-		 	_number = results.responses["0"].fullTextAnnotation.text.substring(3*length/4,length-1);
-		 }
-		 
-
-		 var newCard = {
-		 	firstName : _name,
-		 	lastName : _name,
-		 	email : _email,
-		 	phoneNumber : _number,
-		 	additionalInfo : ''
-		 }
-
-		 console.log(newCard);
-
-		this.cardsService.add(newCard);
+			 console.log(results);
+			 console.log(results.responses["0"].fullTextAnnotation);
 
 
-  		this.router.navigate(['busniessCards']);
+			 var _name = 'webCameTest';
+			 var _address = '';
+			 var _email = '';
+			 var _number = '';
+
+			 if(results.responses["0"].fullTextAnnotation === null || results.responses["0"].fullTextAnnotation === undefined)
+			 {
+			 	alert("No text found in camera capture image");
+			 	
+			 }
+			 else
+			 {
+			 	var fullText = results.responses["0"].fullTextAnnotation.text;
+				 var length = results.responses["0"].fullTextAnnotation.text.length;
+
+				 _name = results.responses["0"].fullTextAnnotation.text;
+
+				 if(length>20)
+				 {
+				 	_name = results.responses["0"].fullTextAnnotation.text.substring(0,length/4);
+				 	_address = results.responses["0"].fullTextAnnotation.text.substring(length/4,2*length/4);
+				 	_email = results.responses["0"].fullTextAnnotation.text.substring(2*length/4,3*length/4);
+				 	_number = results.responses["0"].fullTextAnnotation.text.substring(3*length/4,length-1);
+				 }
+			 }
+
+			 
+			 
+
+			 var newCard = {
+			 	isNew : true,
+			 	firstName : _name,
+			 	lastName : '',
+			 	email : _email,
+			 	phoneNumber : _number,
+			 	additionalInfo : '',
+			 	imageBase64: this.base64String
+			 }
+
+			 console.log(newCard);
+
+			//this.cardsService.add(newCard);
+
+			this.cardsService.setTobeEditedCard(newCard);
+
+
+	  		this.router.navigate(['newBusniessCards']);
 
 		 });
 
