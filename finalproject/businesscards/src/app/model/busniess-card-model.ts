@@ -6,4 +6,5 @@ export interface BusniessCardModel {
     additionalInfo: string; 
     phoneNumber: string;
     imageBase64: string;
+    isNew: boolean;
 }

@@ -68,8 +68,11 @@ export class BusinessCardService {
 
          //Get document id
          const id = a.payload.doc.id;
+
+         const isNew = false;
+
          //Use spread operator to add the id to the document data
-         return { id, ...data};
+         return { id, isNew,...data};
        });
     }));
     this.setTobeEditedCard(null);
@@ -89,8 +92,11 @@ export class BusinessCardService {
 
          //Get document id
          const id = a.payload.doc.id;
+
+         const isNew = false;
+
          //Use spread operator to add the id to the document data
-         return { id, ...data};
+         return { id,isNew, ...data};
        });
     }));
     this.setTobeEditedCard(null);
@@ -110,8 +116,10 @@ export class BusinessCardService {
 
          //Get document id
          const id = a.payload.doc.id;
+
+         const isNew = false;
          //Use spread operator to add the id to the document data
-         return { id, ...data};
+         return { id,isNew, ...data};
        });
     }));
      if(this.callbackWhenDataChanged!=null) this.callbackWhenDataChanged();
