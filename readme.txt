@@ -19,3 +19,5 @@ FinalProject：Firebase Url:https://csc436kunfangfinal.firebaseapp.com
 
 LoginName: chandlergegg@gmail.com
 Password: 5DeepBreaths
+
+Something wrong with my WebCam.
