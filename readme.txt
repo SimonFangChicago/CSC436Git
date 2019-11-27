@@ -12,3 +12,10 @@ Homework3 Firebase Url:https://csc436hw3.firebaseapp.com
 
 Homework4：https://github.com/SimonFangChicago/CSC436Git/tree/master/homework4
 Homework4 Firebase Url:https://csc436hw04.firebaseapp.com
+
+=====================================================================================================
+FinalProject：https://github.com/SimonFangChicago/CSC436Git/tree/master/finalproject/businesscards
+FinalProject：Firebase Url:https://csc436kunfangfinal.firebaseapp.com
+
+LoginName: chandlergegg@gmail.com
+Password: 5DeepBreaths
